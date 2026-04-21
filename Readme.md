@@ -92,61 +92,6 @@ dependencies {
 2. Import the BigCharts composables
 3. Add chart components to your Compose UI
 
-```kotlin
-import androidx.compose.runtime.Composable
-import androidx.compose.material3.MaterialTheme
-import com.enigma.bigcharts.ui.theme.BigChartsTheme
-
-@Composable
-fun MyChartScreen() {
-    BigChartsTheme {
-        // Your chart components go here
-    }
-}
-```
-
-## 💡 Usage Examples
-
-### Example 1: Simple Chart in Compose
-
-```kotlin
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-
-@Composable
-fun SimpleChartExample() {
-    // Chart implementation here
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(300.dp)
-    ) {
-        // Add your chart component
-    }
-}
-```
-
-### Example 2: Using BigCharts in an Activity
-
-```kotlin
-import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
-import com.enigma.bigcharts.ui.theme.BigChartsTheme
-
-class ChartActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            BigChartsTheme {
-                ChartScreen()
-            }
-        }
-    }
-}
-```
 
 ## 🏗️ Project Structure
 
@@ -177,16 +122,16 @@ BigCharts/
 
 ```kotlin
 // Jetpack Compose
-androidx.compose.ui:compose-ui
-androidx.compose.material3:material3
+"androidx.compose.ui:compose-ui"
+"androidx.compose.material3:material3"
 
 // Material Icons
-androidx.compose.material:material-icons-extended-android
+"androidx.compose.material:material-icons-extended-android"
 
 // Android Core
-androidx.core:core-ktx
-androidx.activity:activity-compose
-androidx.lifecycle:lifecycle-runtime-ktx
+"androidx.core:core-ktx"
+"androidx.activity:activity-compose"
+"androidx.lifecycle:lifecycle-runtime-ktx"
 ```
 
 ## 🤝 Contributing
