@@ -71,7 +71,7 @@ In your app's `build.gradle.kts` file, add BigCharts to your dependencies:
 ```kotlin
 dependencies {
     // BigCharts library
-    implementation("com.github.vinnynm:bigcharts:1.0.0")
+    implementation("com.github.vinnynm:bigcharts:panther")
     
     // Other dependencies...
 }
