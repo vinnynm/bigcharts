@@ -55,7 +55,6 @@ fun MediumLineChart(
             dataset = filteredDataset,
             config = config,
             showZoomControls = false,
-            animatedProgress = progress,
             onPointTap = onPointTap
         )
     }

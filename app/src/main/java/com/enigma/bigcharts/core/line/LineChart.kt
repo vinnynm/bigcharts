@@ -1,11 +1,11 @@
 package com.enigma.bigcharts.core.line
 
+import android.annotation.SuppressLint
 import android.graphics.Paint
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -14,16 +14,12 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
-import com.enigma.charts.core.utils.ChartConfig
-import com.enigma.charts.core.utils.CrosshairState
-import com.enigma.charts.core.utils.LineChartAnnotation
-import com.enigma.charts.core.utils.LineStyle
-import com.enigma.charts.core.utils.MultiSeriesDataset
-import com.enigma.charts.core.utils.PointStyle
-import com.enigma.charts.core.utils.TimeSeriesPoint
-import com.enigma.charts.core.utils.drawAnnotations
-import com.enigma.charts.core.utils.drawCrosshair
-import com.enigma.charts.core.utils.detectChartGestures
+import com.enigma.bigcharts.core.utils.ChartConfig
+import com.enigma.bigcharts.core.utils.LineStyle
+import com.enigma.bigcharts.core.utils.MultiSeriesDataset
+import com.enigma.bigcharts.core.utils.PointStyle
+import com.enigma.bigcharts.core.utils.TimeSeriesPoint
+import com.enigma.bigcharts.core.utils.detectChartGestures
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -35,6 +31,7 @@ private const val PAD_T = 16f
 private const val PAD_R = 16f
 private const val PAD_B = 36f
 
+@SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun LineChart(
     dataset: MultiSeriesDataset,
@@ -327,10 +324,9 @@ private fun DrawScope.drawTooltipPill(
     padL: Float, padT: Float, plotW: Float,
     color: Color
 ) {
-    val textPaint = Paint().apply {
+    var textPaint = Paint().apply {
         isAntiAlias = true
         textSize = 26f
-        color = android.graphics.Color.WHITE
         typeface = android.graphics.Typeface.DEFAULT_BOLD
     }
     val textW = textPaint.measureText(text)

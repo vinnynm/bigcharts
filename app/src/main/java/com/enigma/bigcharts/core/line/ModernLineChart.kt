@@ -13,15 +13,11 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
-import com.enigma.charts.core.utils.ChartConfig
-import com.enigma.charts.core.utils.CrosshairState
-import com.enigma.charts.core.utils.LineChartAnnotation
-import com.enigma.charts.core.utils.LineStyle
-import com.enigma.charts.core.utils.MultiSeriesDataset
-import com.enigma.charts.core.utils.TimeSeriesPoint
-import com.enigma.charts.core.utils.drawAnnotations
-import com.enigma.charts.core.utils.drawCrosshair
-import com.enigma.charts.core.utils.detectChartGestures
+import com.enigma.bigcharts.core.utils.ChartConfig
+import com.enigma.bigcharts.core.utils.LineStyle
+import com.enigma.bigcharts.core.utils.MultiSeriesDataset
+import com.enigma.bigcharts.core.utils.TimeSeriesPoint
+import com.enigma.bigcharts.core.utils.detectChartGestures
 
 // ── Layout constants ──────────────────────────────────────────────────────────
 private const val PAD_L = 56f
@@ -288,10 +284,11 @@ private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawModernTooltip(
     plotW: Float, plotH: Float,
     color: Color
 ) {
-    val textPaint = Paint().apply {
+    val textPaint = Paint(
+
+    ).apply {
         isAntiAlias = true
         textSize = 26f
-        color = android.graphics.Color.WHITE
         typeface = Typeface.DEFAULT_BOLD
     }
     val textW = textPaint.measureText(text)

@@ -1,9 +1,16 @@
-package com.enigma.charts.core.utils
+package com.enigma.bigcharts.core.line
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
+import com.enigma.bigcharts.core.utils.TimeSeriesPoint
+import kotlin.math.abs
+
+import android.graphics.Paint as AndroidPaint
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.nativeCanvas
 
 // ── Annotation model ──────────────────────────────────────────────────────────
 
@@ -104,7 +111,7 @@ class CrosshairState(val snapToPoints: Boolean = true) {
      */
     fun update(
         touchOffset: Offset,
-        canvasSize: androidx.compose.ui.geometry.Size,
+        canvasSize: Size,
         dataPoints: List<TimeSeriesPoint>,
         xPositions: List<Float>,
         maxValue: Float,
@@ -114,7 +121,7 @@ class CrosshairState(val snapToPoints: Boolean = true) {
         if (dataPoints.isEmpty() || xPositions.isEmpty()) return
 
         val nearestIndex = xPositions.indices
-            .minByOrNull { kotlin.math.abs(xPositions[it] - touchOffset.x) }
+            .minByOrNull { abs(xPositions[it] - touchOffset.x) }
             ?: return
 
         val snappedX = if (snapToPoints) xPositions[nearestIndex] else touchOffset.x
@@ -128,7 +135,7 @@ class CrosshairState(val snapToPoints: Boolean = true) {
         seriesKeys.forEach { key ->
             val v = point.getValue(key)
             val expectedY = canvasSize.height * (1f - (v - minValue) / valueRange)
-            val dist = kotlin.math.abs(expectedY - touchOffset.y)
+            val dist = abs(expectedY - touchOffset.y)
             if (dist < minDist) {
                 minDist = dist
                 bestSeries = key
@@ -144,11 +151,6 @@ class CrosshairState(val snapToPoints: Boolean = true) {
 
 // ── Canvas drawing helpers ────────────────────────────────────────────────────
 
-import android.graphics.Paint as AndroidPaint
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.nativeCanvas
 
 /**
  * Draw all [annotations] onto a chart canvas.
