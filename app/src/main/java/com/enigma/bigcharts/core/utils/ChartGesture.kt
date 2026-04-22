@@ -72,7 +72,7 @@ fun Modifier.detectChartGestures(
                     if (isDragging || onDrag != null) {
                         // Always stream drag updates when onDrag is wired up
                         onDrag.invoke(downPosition, change.position, canvasSize)
-                        change.consume()
+                        if (isDragging) change.consume()
                     }
                 }
             } else {

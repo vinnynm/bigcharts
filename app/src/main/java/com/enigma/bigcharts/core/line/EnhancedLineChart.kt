@@ -17,12 +17,12 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import com.enigma.charts.core.utils.ZoomControls
-import com.enigma.charts.core.utils.ZoomPanState
-import com.enigma.charts.core.utils.zoomableChart
-import com.enigma.charts.core.utils.ChartConfig
-import com.enigma.charts.core.utils.MultiSeriesDataset
-import com.enigma.charts.core.utils.TimeSeriesPoint
+import com.enigma.bigcharts.core.utils.ChartConfig
+import com.enigma.bigcharts.core.utils.MultiSeriesDataset
+import com.enigma.bigcharts.core.utils.TimeSeriesPoint
+import com.enigma.bigcharts.core.utils.ZoomControls
+import com.enigma.bigcharts.core.utils.ZoomPanState
+import com.enigma.bigcharts.core.utils.zoomableChart
 
 private const val PAD_L = 56f
 private const val PAD_T = 20f

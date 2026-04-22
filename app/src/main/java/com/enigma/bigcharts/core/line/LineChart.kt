@@ -65,6 +65,14 @@ fun LineChart(
 
     // Pre-compute X positions once so gesture handler and draw pass agree perfectly
     val xDivisor = (dataPoints.size - 1).coerceAtLeast(1).toFloat()
+    var canvasSizeForGestures by remember { mutableStateOf(Size.Zero) }
+    val xPositions by remember(canvasSizeForGestures, dataPoints.size) {
+        derivedStateOf {
+            val plotW = canvasSizeForGestures.width - PAD_L - PAD_R
+            if (plotW <= 0) emptyList<Float>()
+            else dataPoints.indices.map { i -> PAD_L + (i.toFloat() / xDivisor) * plotW }
+        }
+    }
 
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
         Canvas(
@@ -73,43 +81,37 @@ fun LineChart(
                 .height(400.dp)
                 .detectChartGestures(
                     onTap = { offset, canvasSize ->
-                        val plotW = canvasSize.width - PAD_L - PAD_R
-                        val xPositions = dataPoints.indices.map { i ->
-                            PAD_L + (i.toFloat() / xDivisor) * plotW
-                        }
-                        crosshairState.update(
-                            touchOffset = offset,
-                            canvasSize = canvasSize,
-                            dataPoints = dataPoints,
-                            xPositions = xPositions,
-                            maxValue = maxValue,
-                            minValue = minValue,
-                            seriesKeys = seriesKeys
-                        )
-                        val idx = crosshairState.activeIndex
-                        val key = crosshairState.activeSeriesKey
-                        if (idx != null && key != null) {
-                            onPointTap?.invoke(key, dataPoints[idx], idx)
-                        }
-                        if (!scrubMode) {
-                            // In tap mode, clear after one frame so the crosshair flashes
-                            // then stays visible until next tap elsewhere
+                        canvasSizeForGestures = canvasSize
+                        if (xPositions.isNotEmpty()) {
+                            crosshairState.update(
+                                touchOffset = offset,
+                                canvasSize = canvasSize,
+                                dataPoints = dataPoints,
+                                xPositions = xPositions,
+                                maxValue = maxValue,
+                                minValue = minValue,
+                                seriesKeys = seriesKeys
+                            )
+                            val idx = crosshairState.activeIndex
+                            val key = crosshairState.activeSeriesKey
+                            if (idx != null && key != null) {
+                                onPointTap?.invoke(key, dataPoints[idx], idx)
+                            }
                         }
                     },
-                    onDrag = if (scrubMode) { start, current, canvasSize ->
-                        val plotW = canvasSize.width - PAD_L - PAD_R
-                        val xPositions = dataPoints.indices.map { i ->
-                            PAD_L + (i.toFloat() / xDivisor) * plotW
+                    onDrag = if (scrubMode) { _, current, canvasSize ->
+                        canvasSizeForGestures = canvasSize
+                        if (xPositions.isNotEmpty()) {
+                            crosshairState.update(
+                                touchOffset = current,
+                                canvasSize = canvasSize,
+                                dataPoints = dataPoints,
+                                xPositions = xPositions,
+                                maxValue = maxValue,
+                                minValue = minValue,
+                                seriesKeys = seriesKeys
+                            )
                         }
-                        crosshairState.update(
-                            touchOffset = current,
-                            canvasSize = canvasSize,
-                            dataPoints = dataPoints,
-                            xPositions = xPositions,
-                            maxValue = maxValue,
-                            minValue = minValue,
-                            seriesKeys = seriesKeys
-                        )
                     } else null
                 )
         ) {
