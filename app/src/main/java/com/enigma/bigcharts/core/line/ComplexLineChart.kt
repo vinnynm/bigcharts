@@ -41,7 +41,6 @@ fun ComplexLineChart(
             config = config,
             zoomPanState = zoomPanState,
             showZoomControls = false,
-            animatedProgress = progress,
             onPointTap = onPointTap,
         )
         ZoomControls(
