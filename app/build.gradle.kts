@@ -18,6 +18,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            matchingFallbacks += listOf("release")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
