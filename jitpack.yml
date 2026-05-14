@@ -1,0 +1,8 @@
+# Specify the Java version to match your project
+jdk:
+  - openjdk11
+
+# Tell JitPack exactly which task to run. 
+# Replace ':app' with your module name if it's different.
+install:
+  - ./gradlew :app:publishToMavenLocal
