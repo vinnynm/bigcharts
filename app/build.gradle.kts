@@ -8,16 +8,15 @@ android {
     namespace = "com.enigma.bigcharts"
     compileSdk = 36
 
-    defaultConfig {
-        // 1. REMOVED applicationId (Libraries don't use this)
-        
+   defaultConfig {
         minSdk = 24
         
-        // 2. In some versions of Kotlin DSL, use assignment for these:
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
-
+        // Use these function calls instead of property assignment
+        targetSdk = 36   // If this fails, try: testInstrumentationRunnerArguments["targetSdk"] = "36"
+        
+        // Note: For libraries, versionCode and versionName are usually 
+        // omitted here and handled by the publishing block/Git tags.
+        // If you need them for internal tracking, use:
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
