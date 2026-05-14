@@ -1,8 +1,7 @@
 plugins {
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.android.library)
-
-    id("maven-publish")      // Required for JitPack to see your library
+    alias(libs.plugins.android.library) // This confirms it's a library
+    id("maven-publish")
 }
 
 android {
@@ -10,8 +9,11 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.enigma.bigcharts"
+        // 1. REMOVED applicationId (Libraries don't use this)
+        
         minSdk = 24
+        
+        // 2. In some versions of Kotlin DSL, use assignment for these:
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -31,16 +33,30 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     buildFeatures {
         compose = true
     }
+
     publishing {
         singleVariant("release") {
             withSourcesJar()
+        }
+    }
+}
+
+// 3. Add this at the bottom so JitPack can actually find the artifact
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            afterEvaluate {
+                from(components["release"])
+            }
         }
     }
 }
