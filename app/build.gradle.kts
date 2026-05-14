@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.android.library)
+
+    id("maven-publish")      // Required for JitPack to see your library
 }
 
 android {
