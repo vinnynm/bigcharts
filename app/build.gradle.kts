@@ -10,14 +10,8 @@ android {
 
    defaultConfig {
         minSdk = 24
-        
-        // Use these function calls instead of property assignment
-        targetSdk = 36   // If this fails, try: testInstrumentationRunnerArguments["targetSdk"] = "36"
-        
-        // Note: For libraries, versionCode and versionName are usually 
-        // omitted here and handled by the publishing block/Git tags.
-        // If you need them for internal tracking, use:
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // Removed targetSdk, versionCode, and versionName to prevent DSL errors
     }
 
     buildTypes {
